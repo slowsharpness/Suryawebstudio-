@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SuryaWebStudio — Websites That Get You Noticed</title>
 <meta name="description" content="SuryaWebStudio builds fast, conversion-focused websites for businesses and coaching institutes in India. Starting at ₹4,999.">
-<meta name="google-site-verification=3pD5TfjCUVgNPNeHkiL3rcRMeHqzjuCBatQrLY1yaXQ"/>
+
+<meta name="google-site-verification" content="3pD5TfjCUVgNPNeHkiL3rcRMeHqzjuCBatQrLY1yaXQ" />
+
 <script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,o.onload=function(){window.trackingFunctions.onLoad({appId:"69cd19bc4e1b98000dd5f17f"})},document.head.appendChild(o)}initApollo();</script>
 
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -595,56 +597,283 @@
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
   /* FOOTER */
-  footer {
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    padding: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-  }
-  .footer-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.5rem; letter-spacing: 0.06em;
-  }
-  .footer-logo span { color: var(--accent); }
-  .footer-links { display: flex; gap: 2rem; }
-  .footer-links a {
-    font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--muted); text-decoration: none;
-    transition: color 0.2s;
-  }
-  .footer-links a:hover { color: var(--accent); }
-  .footer-copy {
-    font-size: 0.75rem;
-    color: var(--muted);
-    font-family: 'Space Mono', monospace;
-  }
-
-  /* ANIMATIONS */
-  .fade-up {
-    opacity: 1;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .fade-up.visible {
-    opacity: 1; transform: translateY(0);
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    nav { padding: 1.2rem 1.5rem; }
-    .nav-links { display: none; }
-    .hero { grid-template-columns: 1fr; padding: 2rem 1.5rem;
-      padding-top: 6rem; gap: 2rem; }
-    .hero-right { display: none; }
-    section { padding: 4rem 1.5rem; }
-    .services-grid { grid-template-columns: 1fr; }
-    .process-steps { grid-template-columns: 1fr 1fr; }
-    .process-steps::before { display: none; }
-    .why-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .pricing-grid { grid-template-columns: 1fr; }
-    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
-    footer { flex-direction: colu
+  ‎  /* FOOTER */
+‎  footer {
+‎    background: var(--surface);
+‎    border-top: 1px solid var(--border);
+‎    padding: 3rem;
+‎    display: flex;
+‎    align-items: center;
+‎    justify-content: space-between;
+‎    flex-wrap: wrap;
+‎    gap: 1.5rem;
+‎  }
+‎  .footer-logo {
+‎    font-family: 'Bebas Neue', sans-serif;
+‎    font-size: 1.5rem; letter-spacing: 0.06em;
+‎  }
+‎  .footer-logo span { color: var(--accent); }
+‎  .footer-links { display: flex; gap: 2rem; }
+‎  .footer-links a {
+‎    font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+‎    color: var(--muted); text-decoration: none;
+‎    transition: color 0.2s;
+‎  }
+‎  .footer-links a:hover { color: var(--accent); }
+‎  .footer-copy {
+‎    font-size: 0.75rem;
+‎    color: var(--muted);
+‎    font-family: 'Space Mono', monospace;
+‎  }
+‎
+‎  /* ANIMATIONS */
+‎  .fade-up {
+‎    opacity: 0;
+‎    transform: translateY(30px);
+‎    transition: opacity 0.7s ease, transform 0.7s ease;
+‎  }
+‎  .fade-up.visible {
+‎    opacity: 1; transform: translateY(0);
+‎  }
+‎
+‎  /* RESPONSIVE */
+‎  @media (max-width: 900px) {
+‎    nav { padding: 1.2rem 1.5rem; }
+‎    .nav-links { display: none; }
+‎    .hero { grid-template-columns: 1fr; padding: 2rem 1.5rem;
+‎      padding-top: 6rem; gap: 2rem; }
+‎    .hero-right { display: none; }
+‎    section { padding: 4rem 1.5rem; }
+‎    .services-grid { grid-template-columns: 1fr; }
+‎    .process-steps { grid-template-columns: 1fr 1fr; }
+‎    .process-steps::before { display: none; }
+‎    .why-grid { grid-template-columns: 1fr; gap: 2rem; }
+‎    .pricing-grid { grid-template-columns: 1fr; }
+‎    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+‎    footer { flex-direction: column; align-items: flex-start;
+‎      padding: 2rem 1.5rem; }
+‎  }
+‎</style>
+‎</head>
+‎<body>
+‎
+‎<div class="cursor" id="cursor"></div>
+‎<div class="cursor-ring" id="cursorRing"></div>
+‎
+‎<nav>
+‎  <div class="nav-logo">Surya<span>Web</span>Studio</div>
+‎  <ul class="nav-links">
+‎    <li><a href="#services">Services</a></li>
+‎    <li><a href="#smm">Social Media</a></li>
+‎    <li><a href="#process">Process</a></li>
+‎    <li><a href="#why">Why Us</a></li>
+‎    <li><a href="#pricing">Pricing</a></li>
+‎    <li><a href="#contact">Contact</a></li>
+‎  </ul>
+‎  <a href="#contact" class="nav-cta">Get a Quote</a>
+‎</nav>
+‎
+‎<section class="hero">
+‎  <div class="hero-noise"></div>
+‎  <div class="hero-left fade-up">
+‎    <div class="hero-badge">Available for new projects</div>
+‎    <h1>
+‎      <span>Websites</span>
+‎      <span class="line-accent">That Drive</span>
+‎      <span class="line-outline">Results.</span>
+‎    </h1>
+‎  
+‎  <p class="hero-sub">
+‎      We build <strong>clean, fast, conversion-focused websites</strong> for businesses 
+‎and academies that want more enquiries, registrations, and online presence — without the headache.
+‎</p>
+‎    <div class="hero-actions">
+‎      <a href="#contact" class="btn-primary">Start a Project</a>
+‎      <a href="#services" class="btn-ghost">See Services</a>
+‎    </div>
+‎    <div class="hero-stats">
+‎      <div>
+‎        <div class="hero-stat-num">20<span>+</span></div>
+‎        <div class="hero-stat-label">Projects Delivered</div>
+‎      </div>
+‎      <div>
+‎        <div class="hero-stat-num">7<span>d</span></div>
+‎        <div class="hero-stat-label">Avg. Turnaround</div>
+‎      </div>
+‎      <div>
+‎        <div class="hero-stat-num">100<span>%</span></div>
+‎        <div class="hero-stat-label">Client Satisfaction</div>
+‎      </div>
+‎    </div>
+‎  </div>
+‎  <div class="hero-right fade-up">
+‎    <div class="mockup-card">
+‎      <div class="mockup-top">
+‎        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+‎        <div class="mockup-url">www.yourbusiness.com</div>
+‎      </div>
+‎      <div class="mockup-row">
+‎     
+‎        <div class="mockup-img-ph"></div>
+‎        <div style="flex:1">
+‎          <div class="mockup-line"></div>
+‎          <div class="mockup-line short"></div>
+‎          <div class="mockup-line shorter"></div>
+‎          <div class="mockup-line accent"></div>
+‎        </div>
+‎      </div>
+‎      <div class="mockup-line" style="margin-top:1rem"></div>
+‎      <div class="mockup-line short"></div>
+‎      <div class="tech-tags">
+‎   
+‎        <span class="tag hot">Fast</span>
+‎        <span class="tag hot">Mobile-first</span>
+‎        <span class="tag">SEO-ready</span>
+‎        <span class="tag">Secure</span>
+‎      </div>
+‎    </div>
+‎    <div class="mockup-card">
+‎      <div style="font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:1rem">
+‎        &lt;/&gt;
+‎        Built with modern tech
+‎      </div>
+‎      <div class="tech-tags">
+‎        <span class="tag">HTML / CSS</span>
+‎        <span class="tag">JavaScript</span>
+‎        <span class="tag">WordPress</span>
+‎        <span class="tag">Shopify</span>
+‎        <span class="tag">React</span>
+‎        <span class="tag hot">Custom Design</span>
+‎      </div>
+‎    </div>
+‎  </div>
+‎</section>
+‎
+‎<div class="marquee-section">
+‎  <div class="marquee-track">
+‎    <span class="marquee-item">Website Development <span>✦</span></span>
+‎ 
+‎    <span class="marquee-item">Landing Pages <span>✦</span></span>
+‎    <span class="marquee-item">Social Media Marketing <span>✦</span></span>
+‎    <span class="marquee-item">Lead Generation <span>✦</span></span>
+‎    <span class="marquee-item">Academy Websites <span>✦</span></span>
+‎    <span class="marquee-item">Business Websites <span>✦</span></span>
+‎    <span class="marquee-item">Website Development <span>✦</span></span>
+‎    <span class="marquee-item">Landing Pages <span>✦</span></span>
+‎    <span class="marquee-item">Social Media Marketing <span>✦</span></span>
+‎    <span class="marquee-item">Lead Generation <span>✦</span></span>
+‎    <span class="marquee-item">Academy Websites <span>✦</span></span>
+‎    <span class="marquee-item">Business Websites <span>✦</span></span>
+‎  </div>
+‎</div>
+‎
+‎<section id="services">
+‎  <div class="section-label">What We Do</div>
+‎  <h2 class="section-title fade-up">OUR<br>SERVICES</h2>
+‎  <div class="services-grid fade-up">
+‎    
+‎    <div class="service-card">
+‎      <div class="service-num">01</div>
+‎      <div class="service-icon">🌐</div>
+‎      <div class="service-name">Business Websites</div>
+‎      <p class="service-desc">Professional, mobile-ready websites that establish
+‎ your brand online and turn visitors into real enquiries. Built to load fast and rank on Google.</p>
+‎      <div class="service-bar"></div>
+‎    </div>
+‎    <div class="service-card">
+‎      <div class="service-num">02</div>
+‎      <div class="service-icon">🎓</div>
+‎      <div class="service-name">Academy & Coaching Sites</div>
+‎      <p class="service-desc">Registration-optimized websites for coaching institutes, 
+‎academies, and tutors — with enquiry forms, batch schedules, and conversion-focused layouts.</p>
+‎      <div class="service-bar"></div>
+‎    </div>
+‎    <div class="service-card">
+‎      <div class="service-num">03</div>
+‎      <div class="service-icon">⚡</div>
+‎      <div class="service-name">Landing Pages</div>
+‎      <p class="service-desc">Focused, high-converting single pages built around
+‎ one goal — book a consultation, drive sign-ups, or promote an offer. No distractions, just results.</p>
+‎      <div class="service-bar"></div>
+‎    </div>
+‎    <div class="service-card">
+‎      <div class="service-num">04</div>
+‎      <div class="service-icon">📱</div>
+‎      <div class="service-name">Social Media Marketing</div>
+‎      <p class="service-desc">Content strategy, post design, and account management 
+‎to grow your brand's presence across Instagram, Facebook, and more.</p>
+‎      <div class="service-bar"></div>
+‎    </div>
+‎    <div class="service-card">
+‎      <div class="service-num">05</div>
+‎      <div class="service-icon">🛒</div>
+‎     
+‎       <div class="service-name">E-Commerce Stores</div>
+‎      <p class="service-desc">Clean, easy-to-manage online stores built on Shopify 
+‎or WooCommerce to sell your products 24/7 with secure payments.</p>
+‎      <div class="service-bar"></div>
+‎    </div>
+‎    <div class="service-card">
+‎      <div class="service-num">06</div>
+‎      <div class="service-icon">🔧</div>
+‎      <div class="service-name">Website Redesign & Fixes</div>
+‎      <p class="service-desc">Your current site broken, slow, or outdated? We audit 
+‎and rebuild it — fixing speed, design, and structure so it actually works for you.</p>
+‎      <div class="service-bar"></div>
+‎    </div>
+‎  </div>
+‎</section>
+‎
+‎<section id="smm" style="background: var(--bg);">
+‎  <div class="section-label">Social Media Marketing</div>
+‎  <h2 class="section-title fade-up">GROW YOUR<br>BRAND ONLINE</h2>
+‎  <p style="color:var(--muted);font-size:0.95rem;margin-top:1rem;max-width:600px;line-height:1.8;" class="fade-up">
+‎    Most local businesses in India have zero social media presence — or worse, a dead Instagram page. We fix that with consistent, professional content that gets your brand noticed and drives real enquiries.
+‎  </p>
+‎
+‎  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:3rem;background:var(--border);border:1px 
+‎solid var(--border);" class="fade-up">
+‎
+‎    <div class="service-card">
+‎      <div class="service-icon">📸</div>
+‎      <div class="service-name">Content Creation</div>
+‎      <p class="service-desc">Professional post designs, reels covers, and stories 
+‎tailored to your brand — no stock photos, no generic templates.</p>
+‎      <div class="service-bar"></div>
+‎    </div>
+‎
+‎    <div class="service-card">
+‎      <div class="service-icon">📅</div>
+‎      <div class="service-name">Content Calendar</div>
+‎      <p class="service-desc">Planned monthly posting schedule so your page stays 
+‎active and consistent — no more "we forgot to post" situations.</p>
+‎      <div class="service-bar"></div>
+‎    </div>
+‎
+‎    <div class="service-card">
+‎      <div class="service-icon">📊</div>
+‎      <div class="service-name">Account Management</div>
+‎      <p class="service-desc">We handle your Instagram and Facebook — posting, captions, 
+‎hashtags, and basic engagement so you can focus on your business.</p>
+‎      <div class="service-bar"></div>
+‎    </div>
+‎
+‎    <div class="service-card">
+‎      <div class="service-icon">🎯</div>
+‎      <div class="service-name">Targeted Ad Campaigns</div>
+‎     
+‎      <p class="service-desc">Meta ads that reach your exact target audience in your 
+‎city — whether it's parents, students, or local shoppers.</p>
+‎      <div class="service-bar"></div>
+‎    </div>
+‎
+‎    <div class="service-card">
+‎      <div class="service-icon">📈</div>
+‎      <div class="service-name">Growth Strategy</div>
+‎      <p class="service-desc">Audit of your current presence, competitor analysis, 
+‎and a clear plan to grow followers who actually convert to customers.</p>
+‎      <div class="service-bar"></div>
+‎    </div>
+‎
+‎    <div class="service-card">
+‎      <div class="service-icon">✍️</div>
