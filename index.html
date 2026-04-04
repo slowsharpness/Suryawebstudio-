@@ -1149,6 +1149,101 @@ e;cursor:pointer;width:100%;text-align:center;font-size:0.85rem;">Send Message �
     </form>
   </div>
   </section>
+  <!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Surya<span>Web</span>Studio</div>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025-2026 SuryaWebStudio. All rights reserved.</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = -100, my = -100, rx = -100, ry = -100;
+
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+  function animCursor() {
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+
+  document.querySelectorAll('a, button, .service-card, .why-point').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px'; cursor.style.height = '20px';
+      ring.style.width = '52px'; ring.style.height = '52px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px'; cursor.style.height = '12px';
+      ring.style.width = '36px'; ring.style.height = '36px';
+    });
+  });
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Formspree contact form
+  const form = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formStatus = document.getElementById('form-status');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.7';
+    formStatus.style.display = 'none';
+
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch('https://formspree.io/f/xreokppp', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        formStatus.style.display = 'block';
+        formStatus.style.background = 'rgba(0,200,100,0.08)';
+        formStatus.style.border = '1px solid rgba(0,200,100,0.3)';
+        formStatus.style.color = '#4ade80';
+        formStatus.textContent = '✓ Message sent! We\'ll get back to you within 24 hours.';
+        form.reset();
+        submitBtn.textContent = 'Send Message →';
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+      } else {
+        throw new Error('Server error');
+      }
+    } catch (err) {
+      formStatus.style.display = 'block';
+      formStatus.style.background = 'rgba(255,92,0,0.08)';
+      formStatus.style.border = '1px solid rgba(255,92,0,0.3)';
+      formStatus.style.color = 'var(--accent)';
+      formStatus.textContent = '✗ Something went wrong. Please WhatsApp us directly at +91 63759 35790.';
+      submitBtn.textContent = 'Try Again →';
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+    }
+  });
   </script>
 </body>
 </html>
