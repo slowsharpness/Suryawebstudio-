@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SuryaWebStudio — Sales Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0d0d0b;
+  --surface: #111110;
+  --card: #181816;
+  --border: #262620;
+  --text: #e8e4d9;
+  --muted: #6b6860;
+  --green: #4ade80;
+  --red: #f87171;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Instrument Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* HEADER */
+header {
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background: rgba(13,13,11,0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+}
+.logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 17px; color: #f5a623; letter-spacing: -0.5px; }
+.logo span { color: var(--text); }
+.badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); border: 1px solid var(--border); padding: 4px 10px; border-radius: 4px; letter-spacing: 0.08em; }
+
+/* TABS */
+.tabs {
+  display: flex;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 32px;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0 16px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  color: var(--muted);
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: none;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.tab:hover { color: var(--text); }
+
+.tab-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+.tab[data-id="overview"]  .tab-dot { background: #60a5fa; }
+.tab[data-id="pricing"]   .tab-dot { background: #4ade80; }
+.tab[data-id="calls"]     .tab-dot { background: #fb923c; }
+.tab[data-id="emails"]    .tab-dot { background: #c084fc; }
+.tab[data-id="dms"]       .tab-dot { background: #22d3ee; }
+.tab[data-id="process"]   .tab-dot { background: #facc15; }
+.tab[data-id="rules"]     .tab-dot { background: #f87171; }
+.tab[data-id="apply"]     .tab-dot { background: #f5a623; }
+
+.tab[data-id="overview"].active  { color: #60a5fa; border-bottom-color: #60a5fa; background: rgba(96,165,250,0.05); }
+.tab[data-id="pricing"].active   { color: #4ade80; border-bottom-color: #4ade80; background: rgba(74,222,128,0.05); }
+.tab[data-id="calls"].active     { color: #fb923c; border-bottom-color: #fb923c; background: rgba(251,146,60,0.05); }
+.tab[data-id="emails"].active    { color: #c084fc; border-bottom-color: #c084fc; background: rgba(192,132,252,0.05); }
+.tab[data-id="dms"].active       { color: #22d3ee; border-bottom-color: #22d3ee; background: rgba(34,211,238,0.05); }
+.tab[data-id="process"].active   { color: #facc15; border-bottom-color: #facc15; background: rgba(250,204,21,0.05); }
+.tab[data-id="rules"].active     { color: #f87171; border-bottom-color: #f87171; background: rgba(248,113,113,0.05); }
+.tab[data-id="apply"].active     { color: #f5a623; border-bottom-color: #f5a623; background: rgba(245,166,35,0.05); }
+
+/* SECTIONS */
+main { padding: 40px; max-width: 1100px; margin: 0 auto; }
+.section { display: none; }
+.section.active { display: block; }
+
+.section-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -0.8px; margin-bottom: 6px; }
+.section-desc { color: var(--muted); font-size: 14px; line-height: 1.7; margin-bottom: 30px; }
+
+#overview  .section-title span, #overview  .accent { color: #60a5fa; }
+#pricing   .section-title span, #pricing   .accent { color: #4ade80; }
+#calls     .section-title span, #calls     .accent { color: #fb923c; }
+#emails    .section-title span, #emails    .accent { color: #c084fc; }
+#dms       .section-title span, #dms       .accent { color: #22d3ee; }
+#process   .section-title span, #process   .accent { color: #facc15; }
+#rules     .section-title span, #rules     .accent { color: #f87171; }
+#apply     .section-title span, #apply     .accent { color: #f5a623; }
+
+/* CARDS */
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 24px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 22px; }
+.card-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
+.card-value { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 20px; margin-bottom: 4px; }
+.card-sub { font-size: 13px; color: var(--muted); }
+
+#overview .card-value { color: #60a5fa; }
+#process  .card-value { color: #facc15; }
+#pricing  .card-value { color: #4ade80; }
+
+/* HIGHLIGHT BOX */
+.highlight-box { border-radius: 10px; padding: 18px 22px; margin-bottom: 24px; font-size: 14px; line-height: 1.7; }
+#overview .highlight-box { background: rgba(96,165,250,0.05);  border: 1px solid rgba(96,165,250,0.2);  color: #c8d8f0; }
+#pricing  .highlight-box { background: rgba(74,222,128,0.05);  border: 1px solid rgba(74,222,128,0.2);  color: #c0e8d0; }
+#calls    .highlight-box { background: rgba(251,146,60,0.05);  border: 1px solid rgba(251,146,60,0.2);  color: #f0d8c0; }
+#emails   .highlight-box { background: rgba(192,132,252,0.05); border: 1px solid rgba(192,132,252,0.2); color: #d8c8f0; }
+#dms      .highlight-box { background: rgba(34,211,238,0.05);  border: 1px solid rgba(34,211,238,0.2);  color: #c0e8f0; }
+#process  .highlight-box { background: rgba(250,204,21,0.05);  border: 1px solid rgba(250,204,21,0.2);  color: #f0e8c0; }
+#rules    .highlight-box { background: rgba(248,113,113,0.05); border: 1px solid rgba(248,113,113,0.2); color: #f0c8c8; }
+#apply    .highlight-box { background: rgba(245,166,35,0.05);  border: 1px solid rgba(245,166,35,0.2);  color: #f0dcc0; }
+
+/* TABLE */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 28px; border: 1px solid var(--border); border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; min-width: 540px; }
+th { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface); }
+td { padding: 14px 16px; font-size: 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,0.02); }
+.price { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; color: #4ade80; }
+.commission { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #4ade80; background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.18); padding: 2px 8px; border-radius: 4px; display: inline-block; }
+.tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; background: #1a1a16; border: 1px solid var(--border); color: var(--muted); padding: 2px 7px; border-radius: 3px; display: inline-block; margin: 2px 2px 2px 0; }
+
+/* LIST */
+.list { list-style: none; }
+.list li { display: flex; align-items: flex-start; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--border); font-size: 14px; line-height: 1.6; }
+.list li:last-child { border-bottom: none; }
+.dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
+.dot.g { background: var(--green); }
+.dot.r { background: var(--red); }
+
+/* ACCORDION */
+.accordion { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 14px; overflow: hidden; }
+.acc-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; cursor: pointer; user-select: none; }
+.acc-head:hover { background: rgba(255,255,255,0.02); }
+.acc-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 10px; }
+.step-num { width: 24px; height: 24px; border-radius: 50%; color: #000; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+#calls .step-num { background: #fb923c; }
+#dms   .step-num { background: #22d3ee; }
+.chevron { color: var(--muted); font-size: 16px; transition: transform 0.2s; }
+.chevron.open { transform: rotate(180deg); }
+.acc-body { padding: 0 18px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+.acc-body.open { max-height: 1200px; padding-bottom: 18px; }
+.speaker { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; margin: 14px 0 6px; }
+#calls .speaker { color: #fb923c; }
+#dms   .speaker { color: #22d3ee; }
+.line { background: #0a0a08; padding: 10px 14px; border-radius: 0 6px 6px 0; font-style: italic; font-size: 14px; line-height: 1.7; color: #ccc8ba; margin-bottom: 8px; }
+#calls .line { border-left: 3px solid #fb923c; }
+#dms   .line { border-left: 3px solid #22d3ee; }
+.line.obj { font-style: normal; color: #f87171; border-left-color: #f87171 !important; font-size: 13px; }
+.line.handle { color: #ccc8ba; border-left-color: #4ade80 !important; }
+.note { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); background: #111110; border: 1px solid var(--border); padding: 8px 12px; border-radius: 6px; margin-top: 10px; }
+
+/* EMAIL */
+.email-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 16px; overflow: hidden; }
+.email-meta { padding: 12px 18px; border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 12px; }
+.email-meta b { color: #c084fc; }
+.email-body { padding: 18px; font-size: 14px; line-height: 1.9; color: #c8c4b8; white-space: pre-wrap; }
+.ph { color: #c084fc; font-family: 'JetBrains Mono', monospace; font-size: 12px; background: rgba(192,132,252,0.08); border-radius: 3px; padding: 0 3px; }
+.ph-c { color: #22d3ee; font-family: 'JetBrains Mono', monospace; font-size: 12px; background: rgba(34,211,238,0.08); border-radius: 3px; padding: 0 3px; }
+
+/* TRACKER */
+.tracker { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 24px; overflow: hidden; }
+.tracker-row { display: flex; align-items: flex-start; gap: 16px; padding: 16px 20px; border-bottom: 1px solid var(--border); font-size: 14px; }
+.tracker-row:last-child { border-bottom: none; }
+.t-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 22px; color: #facc15; width: 38px; flex-shrink: 0; padding-top: 1px; }
+
+/* DIVIDER */
+hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 14px; }
+
+/* APPLY FORM */
+.apply-wrap { max-width: 540px; }
+.field { margin-bottom: 18px; }
+.field label { display: block; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.field input, .field select, .field textarea {
+  width: 100%; background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+  padding: 12px 14px; color: var(--text); font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px; outline: none; transition: border-color 0.2s; -webkit-appearance: none; appearance: none;
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--muted); }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: #f5a623; }
+.field textarea { resize: vertical; min-height: 90px; }
+.submit-btn {
+  width: 100%; background: #f5a623; color: #000; font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: 15px; padding: 14px; border: none; border-radius: 8px; cursor: pointer;
+  margin-top: 6px; transition: background 0.15s, transform 0.1s;
+}
+.submit-btn:hover { background: #e09520; }
+.submit-btn:active { transform: scale(0.98); }
+.submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.ok-msg { margin-top: 14px; background: rgba(74,222,128,0.07); border: 1px solid rgba(74,222,128,0.2); color: var(--green); padding: 13px 16px; border-radius: 8px; font-size: 14px; display: none; }
+.err-msg { margin-top: 14px; background: rgba(248,113,113,0.07); border: 1px solid rgba(248,113,113,0.2); color: var(--red); padding: 13px 16px; border-radius: 8px; font-size: 14px; display: none; }
+
+@media(max-width: 680px) {
+  main { padding: 20px; }
+  header { padding: 14px 20px; }
+  .tabs { padding: 0 12px; }
+  .grid-3 { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Surya<span>WebStudio</span></div>
+  <div class="badge">SALES HUB · INTERNAL</div>
+</header>
+
+<div class="tabs">
+  <button class="tab active" data-id="overview" onclick="go('overview',this)"><span class="tab-dot"></span>Overview</button>
+  <button class="tab" data-id="pricing"  onclick="go('pricing',this)"><span class="tab-dot"></span>Pricing & Commission</button>
+  <button class="tab" data-id="calls"    onclick="go('calls',this)"><span class="tab-dot"></span>Cold Call Scripts</button>
+  <button class="tab" data-id="emails"   onclick="go('emails',this)"><span class="tab-dot"></span>Email Templates</button>
+  <button class="tab" data-id="dms"      onclick="go('dms',this)"><span class="tab-dot"></span>DM Templates</button>
+  <button class="tab" data-id="process"  onclick="go('process',this)"><span class="tab-dot"></span>Outreach Process</button>
+  <button class="tab" data-id="rules"    onclick="go('rules',this)"><span class="tab-dot"></span>Rules & Standards</button>
+  <button class="tab" data-id="apply"    onclick="go('apply',this)"><span class="tab-dot"></span>Apply to Join</button>
+</div>
+
+<main>
+
+<!-- OVERVIEW -->
+<div class="section active" id="overview">
+  <div class="section-title">Welcome to <span>SuryaWebStudio</span></div>
+  <div class="section-desc">You're here to contact leads and book calls. Surya provides all the leads — your only job is to reach out, handle objections, and get a call booked. Read every section before you start.</div>
+  <div class="grid-3">
+    <div class="card"><div class="card-label">Your Role</div><div class="card-value">Outreach Rep</div><div class="card-sub">Cold calls · Emails · DMs · Follow-ups</div></div>
+    <div class="card"><div class="card-label">Pay Structure</div><div class="card-value">Commission Only</div><div class="card-sub">You earn when Surya gets paid. No base.</div></div>
+    <div class="card"><div class="card-label">What We Sell</div><div class="card-value">2 Services</div><div class="card-sub">Web Development + Social Media Marketing</div></div>
+  </div>
+  <div class="highlight-box"><strong>Your job is NOT to close.</strong> Surya provides you leads — businesses already identified as needing a website or social media help. Your job is to contact them, start the conversation, and book a 15-minute discovery call with Surya. No selling. No pricing. Just book the call.</div>
+  <h3>How It Works</h3>
+  <ul class="list">
+    <li><span class="dot g"></span>Surya sends you a list of leads — business name, contact, and issue (no website, bad site, no SMM)</li>
+    <li><span class="dot g"></span>You reach out via call, email, or DM using the templates in this hub</li>
+    <li><span class="dot g"></span>If they're interested, you book a call with Surya and log it</li>
+    <li><span class="dot g"></span>Surya closes the deal — if they pay, you get your commission</li>
+    <li><span class="dot r"></span>Do NOT find your own leads — only contact the ones Surya gives you</li>
+  </ul>
+</div>
+
+<!-- PRICING -->
+<div class="section" id="pricing">
+  <div class="section-title">Pricing & <span>Commission</span></div>
+  <div class="section-desc">These are the packages you'll pitch. Don't quote final prices — if asked, give a rough range and push for the call. Surya handles the final number.</div>
+  <h3>Web Development Packages</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Package</th><th>What's Included</th><th>Price Range</th><th>Your Commission</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Starter Site</strong><br/><span class="tag">1–3 pages</span></td><td>Home, About, Contact. Mobile responsive, contact form, basic SEO.</td><td><span class="price">$300–$500</span></td><td><span class="commission">$30–$50</span></td></tr>
+        <tr><td><strong>Business Site</strong><br/><span class="tag">4–6 pages</span></td><td>Full site with services, gallery, testimonials, booking form.</td><td><span class="price">$600–$1,000</span></td><td><span class="commission">$60–$100</span></td></tr>
+        <tr><td><strong>Premium Site</strong><br/><span class="tag">Custom</span></td><td>Custom design, animations, CMS integration, advanced features.</td><td><span class="price">$1,000–$2,000+</span></td><td><span class="commission">$100–$200+</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>Social Media Marketing Packages</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Package</th><th>What's Included</th><th>Monthly Price</th><th>Your Commission</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Basic SMM</strong><br/><span class="tag">8 posts/mo</span></td><td>2 posts/week on Instagram or Facebook. Graphics + captions.</td><td><span class="price">$150/mo</span></td><td><span class="commission">$20/mo</span></td></tr>
+        <tr><td><strong>Growth SMM</strong><br/><span class="tag">16 posts/mo</span></td><td>Daily posts + reels/stories + engagement management.</td><td><span class="price">$300/mo</span></td><td><span class="commission">$40/mo</span></td></tr>
+        <tr><td><strong>Full Management</strong><br/><span class="tag">Custom</span></td><td>Full account management, ads, content creation, reporting.</td><td><span class="price">$500+/mo</span></td><td><span class="commission">$60+/mo</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="highlight-box"><strong>Commission-only structure.</strong> No base pay. You earn the moment Surya collects from the client you booked. No close = no commission. Focus on qualified conversations, not just volume. <strong>Unlogged leads don't count</strong> — if it's not in the sheet, it didn't happen.</div>
+</div>
+
+<!-- CALLS -->
+<div class="section" id="calls">
+  <div class="section-title">Cold Call <span>Scripts</span></div>
+  <div class="section-desc">These are guides, not rigid lines. Sound like a human. The goal of every call: book a 15-minute discovery call with Surya.</div>
+  <div class="highlight-box">Before calling: look at their Google Maps listing, website, reviews, last activity. Know something about them before you dial.</div>
+
+  <div class="accordion">
+    <div class="acc-head" onclick="toggle(this)"><div class="acc-title"><span class="step-num">1</span>Opening — No Website</div><span class="chevron">▾</span></div>
+    <div class="acc-body">
+      <div class="speaker">You say:</div>
+      <div class="line">"Hey, is this [Business Name]? Great — I'm [Your Name], I work with SuryaWebStudio. I was just looking you up on Google and noticed you don't have a website yet. Is that right?"</div>
+      <div class="speaker">Wait for them to confirm. Then:</div>
+      <div class="line">"Yeah, so we build websites specifically for local businesses like yours — something simple that helps customers find you and contact you directly. We've done a few in [their niche or area]. Would you be open to a quick 15-minute call to see if it makes sense for you?"</div>
+      <div class="note">⚡ Ask if they have a website first. Let them confirm the problem themselves. Then offer the call, not the service.</div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="acc-head" onclick="toggle(this)"><div class="acc-title"><span class="step-num">2</span>Opening — Outdated Website</div><span class="chevron">▾</span></div>
+    <div class="acc-body">
+      <div class="speaker">You say:</div>
+      <div class="line">"Hi, is this [Business Name]? Hey — I'm [Your Name] from SuryaWebStudio. I came across your website and it looks like it might not have been updated in a while. Are you still using it to get clients?"</div>
+      <div class="speaker">After they respond:</div>
+      <div class="line">"Yeah, so a lot of businesses in [their area/niche] are losing customers because their site looks outdated or doesn't work on mobile. We redesign and rebuild those — do you have 15 minutes sometime this week to take a look together?"</div>
+      <div class="note">⚡ Don't say "your site is bad." Say it looks like it hasn't been updated. Less offensive, same point.</div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="acc-head" onclick="toggle(this)"><div class="acc-title"><span class="step-num">3</span>Opening — SMM Pitch</div><span class="chevron">▾</span></div>
+    <div class="acc-body">
+      <div class="speaker">You say:</div>
+      <div class="line">"Hi, this is [Your Name] from SuryaWebStudio. I came across [Business Name] on Instagram — looks like you haven't posted in a while. Are you still active on social?"</div>
+      <div class="speaker">After they respond:</div>
+      <div class="line">"Got it. So we manage social media for local businesses — we handle all the content, posting, everything — so you don't have to think about it. It's helped a few businesses in [niche] get more consistent enquiries. Would you be open to a quick 15-minute call to see if it fits?"</div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="acc-head" onclick="toggle(this)"><div class="acc-title"><span class="step-num">4</span>Handling Objections</div><span class="chevron">▾</span></div>
+    <div class="acc-body">
+      <div class="speaker">Objection: "I'm not interested."</div>
+      <div class="line obj">Too quick — they haven't heard anything yet.</div>
+      <div class="line handle">"No worries at all — I'm not trying to sell you anything right now. I just wanted to know if getting more customers online is even something on your radar. If not, totally fine."</div>
+      <div class="speaker">Objection: "How much does it cost?"</div>
+      <div class="line obj">Don't give a number. Push to the call.</div>
+      <div class="line handle">"It depends on what you actually need — that's why I want to set up the short call. But for small businesses, it's usually pretty affordable. The call itself is free, no commitment."</div>
+      <div class="speaker">Objection: "I already have someone handling this."</div>
+      <div class="line handle">"That's great — if it's working well, no reason to change anything. I just figured I'd reach out since [reason you spotted an issue]. If you're happy, no worries."</div>
+      <div class="speaker">Objection: "Send me an email."</div>
+      <div class="line handle">"For sure, I'll send something over. Just so I send the right info — what's the main thing you'd want to improve right now: getting more website traffic, or more enquiries from social media?"</div>
+      <div class="note">⚡ "Send me an email" usually means soft no. Get info first, then send a tailored email.</div>
+    </div>
+  </div>
+</div>
+
+<!-- EMAILS -->
+<div class="section" id="emails">
+  <div class="section-title">Email <span>Templates</span></div>
+  <div class="section-desc">Short, direct, personalised. Always change the <span style="color:#c084fc; font-family:'JetBrains Mono',monospace; font-size:12px;">[bracketed parts]</span> to fit the actual business. Never mass copy-paste.</div>
+
+  <div class="email-card">
+    <div class="email-meta">Subject: <b>Quick question about [Business Name]'s website</b>&nbsp;·&nbsp;Use for: No website / outdated site</div>
+    <div class="email-body">Hi <span class="ph">[First Name / Business Owner]</span>,
+
+I came across <span class="ph">[Business Name]</span> on Google Maps while looking at <span class="ph">[niche]</span> businesses in <span class="ph">[city/area]</span>.
+
+Noticed you <span class="ph">[don't have a website / haven't updated your site in a while]</span> — just wanted to reach out because we work with businesses exactly like yours to get a clean, professional site up that actually brings in enquiries.
+
+Not a sales pitch — just a quick 15-minute call to see if it's even relevant for you.
+
+Would that be worth your time this week?
+
+— <span class="ph">[Your Name]</span>
+SuryaWebStudio · <span class="ph">[Your Phone / WhatsApp]</span></div>
+  </div>
+
+  <div class="email-card">
+    <div class="email-meta">Subject: <b>Helping [Business Name] get more from social media</b>&nbsp;·&nbsp;Use for: Weak / inactive social presence</div>
+    <div class="email-body">Hi <span class="ph">[First Name]</span>,
+
+Found <span class="ph">[Business Name]</span> on Instagram — great business, but posting looks a bit inconsistent lately.
+
+We handle social media for local <span class="ph">[niche]</span> businesses — content, graphics, captions, everything — so owners don't have to worry about it. A few clients have seen a solid uptick in enquiries just from showing up consistently online.
+
+If it's something you've been meaning to sort out, I'd love to show you what we'd do for your account specifically — takes 15 minutes on a call.
+
+Worth a chat?
+
+— <span class="ph">[Your Name]</span>
+SuryaWebStudio</div>
+  </div>
+
+  <div class="email-card">
+    <div class="email-meta">Subject: <b>Just following up — SuryaWebStudio</b>&nbsp;·&nbsp;Use for: Follow-up after 3–4 days no reply</div>
+    <div class="email-body">Hi <span class="ph">[First Name]</span>,
+
+Just circling back on my last email — I know things get busy.
+
+If now isn't a good time, no worries at all. But if you've been thinking about <span class="ph">[improving your website / getting more consistent on social]</span>, I'm happy to jump on a quick call whenever works for you.
+
+Just reply here or drop me a message on <span class="ph">[WhatsApp/phone]</span>.
+
+— <span class="ph">[Your Name]</span></div>
+  </div>
+</div>
+
+<!-- DMS -->
+<div class="section" id="dms">
+  <div class="section-title">DM <span>Templates</span></div>
+  <div class="section-desc">For Instagram, Facebook, or Google Business messages. Even shorter than emails. One or two sentences max for the opener.</div>
+
+  <div class="accordion">
+    <div class="acc-head" onclick="toggle(this)"><div class="acc-title"><span class="step-num">1</span>Instagram DM — No Website</div><span class="chevron">▾</span></div>
+    <div class="acc-body">
+      <div class="line">"Hey <span class="ph-c">[Name]</span> — noticed <span class="ph-c">[Business Name]</span> doesn't have a website yet. We build sites for local businesses that help customers find and contact you easier. Worth a quick chat?"</div>
+      <div class="note">⚡ Keep it under 3 lines. No "I hope this message finds you well." Just get to the point.</div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="acc-head" onclick="toggle(this)"><div class="acc-title"><span class="step-num">2</span>Instagram DM — Inactive Account</div><span class="chevron">▾</span></div>
+    <div class="acc-body">
+      <div class="line">"Hey <span class="ph-c">[Name]</span>, love what <span class="ph-c">[Business Name]</span> does — noticed posting has slowed down a bit. We manage social for local businesses so they stay consistent without the hassle. Would you be open to a quick call to see what we'd do for your page?"</div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="acc-head" onclick="toggle(this)"><div class="acc-title"><span class="step-num">3</span>DM Follow-Up — No Reply</div><span class="chevron">▾</span></div>
+    <div class="acc-body">
+      <div class="line">"Just bumping this up in case it got buried — totally fine if it's not the right time. We're here if you ever want to sort out <span class="ph-c">[website / social media]</span>. 👍"</div>
+      <div class="note">⚡ Send this once only. After two DMs with no reply, move on. Don't spam.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<div class="section" id="process">
+  <div class="section-title">Outreach <span>Process</span></div>
+  <div class="section-desc">Follow this exact sequence every day. Consistency beats intensity.</div>
+  <h3>Daily Workflow</h3>
+  <div class="tracker">
+    <div class="tracker-row"><div class="t-num">01</div><div><strong>Get Your Lead List from Surya</strong><br/><span style="color:var(--muted);font-size:13px;">Surya sends a batch of leads — each has business name, contact info, and the specific issue. Read through before reaching out.</span></div></div>
+    <div class="tracker-row"><div class="t-num">02</div><div><strong>Understand the Lead Before Contacting</strong><br/><span style="color:var(--muted);font-size:13px;">Take 60 seconds to look at the business. What do they do? Where are they? This is what lets you personalise and not sound like a bot.</span></div></div>
+    <div class="tracker-row"><div class="t-num">03</div><div><strong>Call First, Email After</strong><br/><span style="color:var(--muted);font-size:13px;">Cold call is the highest conversion method. If no answer or they say "send an email," send the email within 1 hour.</span></div></div>
+    <div class="tracker-row"><div class="t-num">04</div><div><strong>Log Every Attempt</strong><br/><span style="color:var(--muted);font-size:13px;">Record lead name, date, method (call/email/DM), and outcome — same day, every time. No log = no commission.</span></div></div>
+    <div class="tracker-row"><div class="t-num">05</div><div><strong>Follow Up Once</strong><br/><span style="color:var(--muted);font-size:13px;">No email reply in 3–4 days? Send follow-up once. No DM reply in 2–3 days? One follow-up. Then mark "no response" and move on.</span></div></div>
+    <div class="tracker-row"><div class="t-num">06</div><div><strong>Book the Call — Not the Sale</strong><br/><span style="color:var(--muted);font-size:13px;">The moment someone agrees, send Surya's calendar link, lock in a time, log it as "booked," and notify Surya on WhatsApp immediately.</span></div></div>
+  </div>
+  <h3>Weekly Targets</h3>
+  <div class="grid-3">
+    <div class="card"><div class="card-label">Leads Contacted</div><div class="card-value">All of them</div><div class="card-sub">Every lead Surya sends must be contacted. No cherry-picking.</div></div>
+    <div class="card"><div class="card-label">Positive Replies</div><div class="card-value">10–20%</div><div class="card-sub">Expected reply rate on well-personalised outreach</div></div>
+    <div class="card"><div class="card-label">Calls Booked</div><div class="card-value">3–5 / week</div><div class="card-sub">Minimum expectation to stay on the team</div></div>
+  </div>
+</div>
+
+<!-- RULES -->
+<div class="section" id="rules">
+  <div class="section-title">Rules & <span>Standards</span></div>
+  <div class="section-desc">Non-negotiable. Breaking these will affect your position.</div>
+  <h3>✅ Always Do This</h3>
+  <ul class="list">
+    <li><span class="dot g"></span>Personalise every outreach — use the business name and reference the specific issue Surya flagged</li>
+    <li><span class="dot g"></span>Log every contact attempt and outcome in the tracking sheet, same day</li>
+    <li><span class="dot g"></span>Contact every lead Surya sends — no skipping ones that "look hard"</li>
+    <li><span class="dot g"></span>Be honest about what we do — don't overpromise or make up results</li>
+    <li><span class="dot g"></span>Sound human on calls — read the script but don't recite it robotically</li>
+    <li><span class="dot g"></span>Notify Surya on WhatsApp the same day a call is booked</li>
+  </ul>
+  <hr/>
+  <h3>🚫 Never Do This</h3>
+  <ul class="list">
+    <li><span class="dot r"></span>Never quote a final price — say "depends on the project, we'll go over it on the call"</li>
+    <li><span class="dot r"></span>Never send copy-paste mass emails with zero personalisation</li>
+    <li><span class="dot r"></span>Never DM the same person more than twice</li>
+    <li><span class="dot r"></span>Never make guarantees ("we'll get you 10 clients") — only promise a conversation</li>
+    <li><span class="dot r"></span>Never represent yourself as the owner or founder</li>
+    <li><span class="dot r"></span>Never skip logging leads — untracked leads don't count toward commission</li>
+  </ul>
+  <hr/>
+  <div class="highlight-box"><strong>Questions?</strong> Reach Surya on WhatsApp: <strong>+91 63759 35790</strong> or email <strong>suryawebstudio@gmail.com</strong>. Don't guess on anything — just ask.</div>
+</div>
+
+<!-- APPLY -->
+<div class="section" id="apply">
+  <div class="section-title">Apply to <span>Join</span></div>
+  <div class="section-desc">Fill this out and Surya will get back to you within 24 hours. Be honest — there's no wrong answer, we just want to know who we're working with.</div>
+  <div class="apply-wrap">
+    <form id="applyForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="field">
+        <label>Full Name</label>
+        <input type="text" name="name" placeholder="Your full name" required/>
+      </div>
+      <div class="field">
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="you@example.com" required/>
+      </div>
+      <div class="field">
+        <label>Mobile Number</label>
+        <input type="tel" name="mobile" placeholder="+1 234 567 8900" required/>
+      </div>
+      <div class="field">
+        <label>Country / Timezone</label>
+        <input type="text" name="location" placeholder="e.g. USA — EST" required/>
+      </div>
+      <div class="field">
+        <label>Have you done cold calling or email outreach before?</label>
+        <select name="experience" required>
+          <option value="" disabled selected>Select one</option>
+          <option>Yes, extensively</option>
+          <option>Yes, a little</option>
+          <option>No, but I'm confident I can</option>
+          <option>No experience at all</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Why do you want this role? (Be honest, not impressive)</label>
+        <textarea name="why" placeholder="Keep it short and real..." required></textarea>
+      </div>
+      <div class="field">
+        <label>How many hours per day can you dedicate to this?</label>
+        <select name="hours" required>
+          <option value="" disabled selected>Select one</option>
+          <option>1–2 hrs</option>
+          <option>3–4 hrs</option>
+          <option>5–6 hrs</option>
+          <option>Full time (6+ hrs)</option>
+        </select>
+      </div>
+      <button class="submit-btn" type="submit">Submit Application →</button>
+      <div class="ok-msg" id="ok">✅ Application sent. Surya will get back to you within 24 hours.</div>
+      <div class="err-msg" id="err">❌ Something went wrong. Email directly: suryawebstudio@gmail.com</div>
+    </form>
+  </div>
+</div>
+
+</main>
+
+<script>
+function go(id, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggle(head) {
+  const body = head.nextElementSibling;
+  const ch = head.querySelector('.chevron');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open');
+  ch.classList.toggle('open');
+}
+
+document.getElementById('applyForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = this.querySelector('.submit-btn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  try {
+    const res = await fetch(this.action, {
+      method: 'POST',
+      body: new FormData(this),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      this.reset();
+      document.getElementById('ok').style.display = 'block';
+      document.getElementById('err').style.display = 'none';
+      btn.textContent = 'Submitted ✓';
+    } else { throw new Error(); }
+  } catch {
+    document.getElementById('err').style.display = 'block';
+    btn.textContent = 'Submit Application →';
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
